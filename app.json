@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "RunnerApp",
+    "slug": "runner-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#FF6B35"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.visaflow.runnerapp"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#FF6B35"
+      },
+      "package": "com.visaflow.runnerapp"
+    },
+    "web": {}
+  }
+}
