@@ -5,10 +5,11 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#FF6B35"
+      "backgroundColor": "#08090E"
     },
     "ios": {
       "supportsTablet": true,
@@ -20,6 +21,9 @@
       },
       "package": "com.visaflow.runnerapp"
     },
-    "web": {}
+    "web": {},
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

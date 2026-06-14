@@ -19,6 +19,13 @@ export const saveRun = async (run) => {
   return updated;
 };
 
+export const updateRun = async (updatedRun) => {
+  const runs = await getRuns();
+  const updated = runs.map((r) => r.id === updatedRun.id ? updatedRun : r);
+  await store.setItem(RUNS_KEY, JSON.stringify(updated));
+  return updated;
+};
+
 export const deleteRun = async (id) => {
   const runs = await getRuns();
   const updated = runs.filter((r) => r.id !== id);
@@ -41,4 +48,9 @@ export const setActivePlan = async (planData) => {
 
 export const clearActivePlan = async () => {
   await store.removeItem(ACTIVE_PLAN_KEY);
+};
+
+export const getLastRun = async () => {
+  const runs = await getRuns();
+  return runs.length > 0 ? runs[0] : null;
 };

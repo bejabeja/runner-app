@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,23 +8,54 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from './src/screens/HomeScreen';
-import LogRunScreen from './src/screens/LogRunScreen';
-import TimerScreen from './src/screens/TimerScreen';
-import HistoryScreen from './src/screens/HistoryScreen';
-import StatsScreen from './src/screens/StatsScreen';
 import PlansScreen from './src/screens/PlansScreen';
+import IntervalTimerScreen from './src/screens/IntervalTimerScreen';
+import HistoryScreen from './src/screens/HistoryScreen';
 import { colors } from './src/theme';
 
 const Tab = createBottomTabNavigator();
-const HomeStack = createStackNavigator();
+const RootStack = createStackNavigator();
 
-function HomeStackNavigator() {
+function MainTabs() {
   return (
-    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-      <HomeStack.Screen name="HomeMain" component={HomeScreen} />
-      <HomeStack.Screen name="LogRun" component={LogRunScreen} options={{ presentation: 'modal' }} />
-      <HomeStack.Screen name="Timer" component={TimerScreen} options={{ presentation: 'modal' }} />
-    </HomeStack.Navigator>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.textSecondary,
+        tabBarStyle: {
+          borderTopWidth: 1,
+          borderTopColor: colors.border,
+          backgroundColor: colors.surfaceElevated,
+          height: 68,
+          paddingBottom: 10,
+          paddingTop: 8,
+        },
+        tabBarLabelStyle: { fontSize: 11, fontWeight: '600', letterSpacing: 0.2 },
+        tabBarIcon: ({ focused, color }) => {
+          const icons = {
+            Home: focused ? 'home' : 'home-outline',
+            Plans: focused ? 'trophy' : 'trophy-outline',
+          };
+          return (
+            <View style={{ alignItems: 'center', width: 44 }}>
+              {focused && (
+                <View style={{
+                  position: 'absolute', top: -10,
+                  width: 20, height: 3,
+                  borderRadius: 1.5,
+                  backgroundColor: colors.primary,
+                }} />
+              )}
+              <Ionicons name={icons[route.name]} size={22} color={color} />
+            </View>
+          );
+        },
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Inicio' }} />
+      <Tab.Screen name="Plans" component={PlansScreen} options={{ title: 'Planes' }} />
+    </Tab.Navigator>
   );
 }
 
@@ -31,36 +63,17 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            headerShown: false,
-            tabBarActiveTintColor: colors.primary,
-            tabBarInactiveTintColor: colors.textSecondary,
-            tabBarStyle: {
-              borderTopColor: colors.border,
-              backgroundColor: colors.surface,
-              paddingBottom: 4,
-              height: 60,
-            },
-            tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
-            tabBarIcon: ({ focused, color, size }) => {
-              const icons = {
-                Home: focused ? 'home' : 'home-outline',
-                History: focused ? 'list' : 'list-outline',
-                Stats: focused ? 'bar-chart' : 'bar-chart-outline',
-                Plans: focused ? 'trophy' : 'trophy-outline',
-              };
-              return <Ionicons name={icons[route.name]} size={size} color={color} />;
-            },
-          })}
-        >
-          <Tab.Screen name="Home" component={HomeStackNavigator} options={{ title: 'Inicio' }} />
-          <Tab.Screen name="History" component={HistoryScreen} options={{ title: 'Historial' }} />
-          <Tab.Screen name="Stats" component={StatsScreen} options={{ title: 'Estadísticas' }} />
-          <Tab.Screen name="Plans" component={PlansScreen} options={{ title: 'Planes' }} />
-        </Tab.Navigator>
+        <RootStack.Navigator screenOptions={{ headerShown: false }}>
+          <RootStack.Screen name="Main" component={MainTabs} />
+          <RootStack.Screen
+            name="IntervalTimer"
+            component={IntervalTimerScreen}
+            options={{ gestureEnabled: false, presentation: 'fullScreenModal' }}
+          />
+          <RootStack.Screen name="History" component={HistoryScreen} />
+        </RootStack.Navigator>
       </NavigationContainer>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
     </SafeAreaProvider>
   );
 }
