@@ -28,6 +28,7 @@
     "web": {},
     "plugins": [
       "expo-font",
+      "./plugins/withNotifee",
       [
         "expo-notifications",
         {

@@ -114,7 +114,25 @@ const makeStyles = (colors) => StyleSheet.create({
   descText: { ...typography.body, flex: 1, color: colors.textSecondary, lineHeight: 22 },
 
   controls: { alignItems: 'center', gap: spacing.md, width: '100%' },
-  controlRow: { width: '100%', alignItems: 'center' },
+  btnRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: spacing.sm,
+  },
+  sideBtn: {
+    alignItems: 'center',
+    gap: 4,
+    minWidth: 72,
+    paddingVertical: spacing.xs,
+  },
+  sideBtnText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: 'rgba(255,255,255,0.65)',
+    textAlign: 'center',
+  },
   bigPlayBtn: {
     width: 160,
     height: 160,

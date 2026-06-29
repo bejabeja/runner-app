@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Vibration } from 'react-native';
+import { setActionHandler, showLiveTimer, stopLiveTimer } from '../services/liveTimerNotification';
 import { toggleSession } from '../storage/progress';
 import { saveRun } from '../storage/runs';
 import { generateId } from '../utils/id';
@@ -38,6 +39,11 @@ export function useIntervalTimer(intervals, { planId, sessionIdx, plan, week, da
   const startRef = useRef(null);
   const accTotalRef = useRef(0);
   const accPhaseRef = useRef(0);
+  const phaseIdxRef = useRef(0);
+  const langRef = useRef(language);
+  const pauseFnRef = useRef(null);
+  const resumeFnRef = useRef(null);
+  const skipFnRef = useRef(null);
 
   const currentPhase = hasParsed ? intervals[phaseIdx] : null;
   const phaseDuration = currentPhase?.duration;
@@ -56,7 +62,10 @@ export function useIntervalTimer(intervals, { planId, sessionIdx, plan, week, da
   const advancePhase = useCallback(() => {
     accPhaseRef.current = 0;
     setPhaseElapsed(0);
-    setPhaseIdx((prev) => prev + 1);
+    setPhaseIdx((prev) => {
+      phaseIdxRef.current = prev + 1;
+      return prev + 1;
+    });
   }, []);
 
   const tick = useCallback(() => {
@@ -65,7 +74,19 @@ export function useIntervalTimer(intervals, { planId, sessionIdx, plan, week, da
     const phElapsed = accPhaseRef.current + Math.floor((now - startRef.current) / 1000);
     setTotalElapsed(elapsed);
     setPhaseElapsed(phElapsed);
-  }, []);
+    const phase = intervals[phaseIdxRef.current];
+    if (phase) {
+      const rem = phase.duration ? Math.max(phase.duration - phElapsed, 0) : null;
+      showLiveTimer({
+        phaseType: phase.type,
+        lang: langRef.current,
+        remaining: rem,
+        totalElapsed: elapsed,
+        isPaused: false,
+        hasNext: phaseIdxRef.current + 1 < intervals.length,
+      }).catch(() => {});
+    }
+  }, [intervals]);
 
   // Timer tick
   useEffect(() => {
@@ -104,6 +125,17 @@ export function useIntervalTimer(intervals, { planId, sessionIdx, plan, week, da
       notifGrantedRef.current = await requestNotificationPermission();
     }
     scheduleNotifs(0, 0);
+    const phase = intervals[0];
+    if (phase) {
+      showLiveTimer({
+        phaseType: phase.type,
+        lang: language,
+        remaining: phase.duration ?? null,
+        totalElapsed: 0,
+        isPaused: false,
+        hasNext: intervals.length > 1,
+      }).catch(() => {});
+    }
   };
 
   const beginCountdown = () => {
@@ -130,13 +162,38 @@ export function useIntervalTimer(intervals, { planId, sessionIdx, plan, week, da
     accPhaseRef.current = phaseElapsed;
     setStatus('paused');
     cancelPhaseNotifications();
+    const phase = intervals[phaseIdx];
+    if (phase) {
+      showLiveTimer({
+        phaseType: phase.type,
+        lang: language,
+        remaining: phaseRemaining,
+        totalElapsed,
+        isPaused: true,
+        hasNext: phaseIdx + 1 < intervals.length,
+      }).catch(() => {});
+    }
   };
 
   const resume = () => {
     startRef.current = Date.now();
     setStatus('running');
     scheduleNotifs(phaseIdx, phaseElapsed);
+    const phase = intervals[phaseIdx];
+    if (phase) {
+      showLiveTimer({
+        phaseType: phase.type,
+        lang: language,
+        remaining: phaseRemaining,
+        totalElapsed,
+        isPaused: false,
+        hasNext: phaseIdx + 1 < intervals.length,
+      }).catch(() => {});
+    }
   };
+
+  pauseFnRef.current = pause;
+  resumeFnRef.current = resume;
 
   const skipPhase = () => {
     clearInterval(intervalRef.current);
@@ -155,6 +212,8 @@ export function useIntervalTimer(intervals, { planId, sessionIdx, plan, week, da
     intervalRef.current = setInterval(tick, TIMER_TICK_MS);
     scheduleNotifs(nextIdx, 0);
   };
+
+  skipFnRef.current = skipPhase;
 
   const completeLap = () => {
     setLapsCompleted((l) => l + 1);
@@ -196,6 +255,19 @@ export function useIntervalTimer(intervals, { planId, sessionIdx, plan, week, da
     checkCompletion(updated);
   };
 
+  // Sync refs
+  useEffect(() => { langRef.current = language; }, [language]);
+
+  // Register notification action handler (pause/resume/skip from lock screen)
+  useEffect(() => {
+    setActionHandler((actionId) => {
+      if (actionId === 'pause') pauseFnRef.current?.();
+      else if (actionId === 'resume') resumeFnRef.current?.();
+      else if (actionId === 'skip') skipFnRef.current?.();
+    });
+    return () => setActionHandler(null);
+  }, []);
+
   // Sound + vibration on phase change
   useEffect(() => {
     if (status === 'running' && phaseIdx > 0) {
@@ -218,6 +290,7 @@ export function useIntervalTimer(intervals, { planId, sessionIdx, plan, week, da
       deactivateKeepAwake();
       Vibration.vibrate(VIBRATION_DONE);
       cancelPhaseNotifications();
+      stopLiveTimer().catch(() => {});
     }
   }, [status]);
 
@@ -225,6 +298,7 @@ export function useIntervalTimer(intervals, { planId, sessionIdx, plan, week, da
     clearInterval(intervalRef.current);
     deactivateKeepAwake();
     cancelPhaseNotifications();
+    stopLiveTimer().catch(() => {});
   }, []);
 
   return {
