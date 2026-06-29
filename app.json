@@ -19,11 +19,33 @@
       "adaptiveIcon": {
         "backgroundColor": "#FF6B35"
       },
-      "package": "com.visaflow.runnerapp"
+      "package": "com.visaflow.runnerapp",
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {},
     "plugins": [
-      "expo-font"
-    ]
+      "expo-font",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#FF6B35"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "RunnerApp uses your location to show local weather before your workouts."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "56ad6c37-4c65-4c1a-8dd5-92f75d0ea337"
+      }
+    }
   }
 }

@@ -20,3 +20,7 @@ Requisitos clave de la aplicación:
 4. Estética y Usabilidad:
 - Diseño moderno, limpio, con modo oscuro automático o tonos suaves que no cansen la vista.
 - Botones grandes y fáciles de pulsar mientras se camina o corre.
+
+
+
+hay refactors posibles para que el codigo sea escalable y mantenible a largo plazo y que cumlpa con solid principles y clean code?

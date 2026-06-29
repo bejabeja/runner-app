@@ -1,56 +1,8 @@
-import store from './asyncStorageAdapter';
+// Re-export barrel, import from the domain modules directly for new code:
+//   storage/runs.js     → getRuns, saveRun
+//   storage/plan.js     → getActivePlan, setActivePlan, clearActivePlan
+//   storage/settings.js → getLanguagePref, setLanguagePref, getOnboardingDone, setOnboardingDone
+export * from './plan';
+export * from './runs';
+export * from './settings';
 
-const RUNS_KEY = '@runner_app:runs';
-const ACTIVE_PLAN_KEY = '@runner_app:active_plan';
-
-export const getRuns = async () => {
-  try {
-    const json = await store.getItem(RUNS_KEY);
-    return json ? JSON.parse(json) : [];
-  } catch {
-    return [];
-  }
-};
-
-export const saveRun = async (run) => {
-  const runs = await getRuns();
-  const updated = [run, ...runs].sort((a, b) => new Date(b.date) - new Date(a.date));
-  await store.setItem(RUNS_KEY, JSON.stringify(updated));
-  return updated;
-};
-
-export const updateRun = async (updatedRun) => {
-  const runs = await getRuns();
-  const updated = runs.map((r) => r.id === updatedRun.id ? updatedRun : r);
-  await store.setItem(RUNS_KEY, JSON.stringify(updated));
-  return updated;
-};
-
-export const deleteRun = async (id) => {
-  const runs = await getRuns();
-  const updated = runs.filter((r) => r.id !== id);
-  await store.setItem(RUNS_KEY, JSON.stringify(updated));
-  return updated;
-};
-
-export const getActivePlan = async () => {
-  try {
-    const json = await store.getItem(ACTIVE_PLAN_KEY);
-    return json ? JSON.parse(json) : null;
-  } catch {
-    return null;
-  }
-};
-
-export const setActivePlan = async (planData) => {
-  await store.setItem(ACTIVE_PLAN_KEY, JSON.stringify(planData));
-};
-
-export const clearActivePlan = async () => {
-  await store.removeItem(ACTIVE_PLAN_KEY);
-};
-
-export const getLastRun = async () => {
-  const runs = await getRuns();
-  return runs.length > 0 ? runs[0] : null;
-};

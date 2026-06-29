@@ -1,16 +1,14 @@
-export const colors = {
-  primary: '#FF5C00',
-  primaryDark: '#CC3D00',
-  background: '#08090E',
-  surface: '#11131C',
-  surfaceElevated: '#191C2B',
-  text: '#FFFFFF',
-  textSecondary: '#6B7090',
-  border: '#1E2138',
-  success: '#2DD98F',
-  warning: '#F59E0B',
-  error: '#F56565',
+import { darkTheme } from './ThemeContext';
+
+export const colors = darkTheme;
+
+export const DIFFICULTY_COLOR = {
+  Principiante: '#48BB78',
+  Intermedio: '#4299E1',
+  Avanzado: '#9F7AEA',
 };
+
+export const ONBOARDING_SLIDE_BG = ['#FF5C00', '#2563EB', '#059669'];
 
 export const spacing = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 48 };
 

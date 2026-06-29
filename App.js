@@ -1,6 +1,21 @@
-import React from 'react';
-import { View } from 'react-native';
+import 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import { Audio } from 'expo-av';
+import * as Notifications from 'expo-notifications';
+
+// Show notifications even when the app is in the foreground
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -11,12 +26,30 @@ import HomeScreen from './src/screens/HomeScreen';
 import PlansScreen from './src/screens/PlansScreen';
 import IntervalTimerScreen from './src/screens/IntervalTimerScreen';
 import HistoryScreen from './src/screens/HistoryScreen';
-import { colors } from './src/theme';
+import SettingsScreen from './src/screens/SettingsScreen';
+import OnboardingScreen from './src/screens/OnboardingScreen';
+import PlanFinderScreen from './src/screens/PlanFinderScreen';
+import AddRunScreen from './src/screens/AddRunScreen';
+import { getOnboardingDone, getLanguagePref } from './src/storage/storage';
+import { LanguageProvider, useLanguage } from './src/i18n';
+import { ThemeProvider, useTheme, getThemePref } from './src/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 const RootStack = createStackNavigator();
 
+// Tab bar visual constants
+const TAB_ICON_WIDTH = 44;
+const TAB_INDICATOR_TOP = -10;
+const TAB_INDICATOR_WIDTH = 20;
+const TAB_INDICATOR_HEIGHT = 3;
+const TAB_INDICATOR_RADIUS = 1.5;
+const TAB_LABEL_SIZE = 11;
+
 function MainTabs() {
+  const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
+  const { colors } = useTheme();
+  const tabBarHeight = 52 + insets.bottom;
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -25,25 +58,27 @@ function MainTabs() {
         tabBarInactiveTintColor: colors.textSecondary,
         tabBarStyle: {
           borderTopWidth: 1,
-          borderTopColor: colors.border,
-          backgroundColor: colors.surfaceElevated,
-          height: 68,
-          paddingBottom: 10,
+          borderTopColor: colors.tabBarBorder,
+          backgroundColor: colors.tabBarBg,
+          height: tabBarHeight,
+          paddingBottom: insets.bottom > 0 ? insets.bottom : 8,
           paddingTop: 8,
         },
-        tabBarLabelStyle: { fontSize: 11, fontWeight: '600', letterSpacing: 0.2 },
+        tabBarLabelStyle: { fontSize: TAB_LABEL_SIZE, fontWeight: '600', letterSpacing: 0.2 },
         tabBarIcon: ({ focused, color }) => {
           const icons = {
             Home: focused ? 'home' : 'home-outline',
             Plans: focused ? 'trophy' : 'trophy-outline',
+            History: focused ? 'time' : 'time-outline',
+            Settings: focused ? 'settings' : 'settings-outline',
           };
           return (
-            <View style={{ alignItems: 'center', width: 44 }}>
+            <View style={{ alignItems: 'center', width: TAB_ICON_WIDTH }}>
               {focused && (
                 <View style={{
-                  position: 'absolute', top: -10,
-                  width: 20, height: 3,
-                  borderRadius: 1.5,
+                  position: 'absolute', top: TAB_INDICATOR_TOP,
+                  width: TAB_INDICATOR_WIDTH, height: TAB_INDICATOR_HEIGHT,
+                  borderRadius: TAB_INDICATOR_RADIUS,
                   backgroundColor: colors.primary,
                 }} />
               )}
@@ -53,27 +88,111 @@ function MainTabs() {
         },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Inicio' }} />
-      <Tab.Screen name="Plans" component={PlansScreen} options={{ title: 'Planes' }} />
+      <Tab.Screen name="Home" component={HomeScreen} options={{ title: t('tabs.home') }} />
+      <Tab.Screen name="Plans" component={PlansScreen} options={{ title: t('tabs.plans') }} />
+      <Tab.Screen name="History" component={HistoryScreen} options={{ title: t('tabs.history') }} />
+      <Tab.Screen name="Settings" component={SettingsScreen} options={{ title: t('tabs.settings') }} />
     </Tab.Navigator>
   );
 }
 
-export default function App() {
+function ThemedBackground({ children }) {
+  const { colors, isDark } = useTheme();
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <RootStack.Navigator screenOptions={{ headerShown: false }}>
-          <RootStack.Screen name="Main" component={MainTabs} />
-          <RootStack.Screen
-            name="IntervalTimer"
-            component={IntervalTimerScreen}
-            options={{ gestureEnabled: false, presentation: 'fullScreenModal' }}
-          />
-          <RootStack.Screen name="History" component={HistoryScreen} />
-        </RootStack.Navigator>
-      </NavigationContainer>
-      <StatusBar style="light" />
-    </SafeAreaProvider>
+    <View style={[styles.root, { backgroundColor: colors.rootBg }]}>
+      <LinearGradient
+        colors={colors.gradientColors}
+        locations={colors.gradientLocations}
+        style={StyleSheet.absoluteFill}
+      />
+      <LinearGradient
+        colors={colors.ambientGlow}
+        style={[StyleSheet.absoluteFill, { top: '55%' }]}
+      />
+      <SafeAreaProvider>
+        {children}
+      </SafeAreaProvider>
+      <StatusBar style={isDark ? 'light' : 'dark'} />
+    </View>
   );
 }
+
+export default function App() {
+  const [onboardingDone, setOnboardingDone] = useState(null);
+  const [initLang, setInitLang] = useState('es');
+  const [initIsDark, setInitIsDark] = useState(true);
+
+  useEffect(() => {
+    Audio.setAudioModeAsync({
+      playsInSilentModeIOS: true,
+      staysActiveInBackground: true,
+      shouldDuckAndroid: false,
+    });
+    Promise.all([getOnboardingDone(), getLanguagePref(), getThemePref()]).then(([done, lang, isDark]) => {
+      setInitLang(lang);
+      setInitIsDark(isDark);
+      setOnboardingDone(done);
+    });
+  }, []);
+
+  if (onboardingDone === null) {
+    return (
+      <GestureHandlerRootView style={styles.root}>
+        <ThemeProvider initialIsDark={initIsDark}>
+          <ThemedBackground>
+            <View style={{ flex: 1 }} />
+          </ThemedBackground>
+        </ThemeProvider>
+      </GestureHandlerRootView>
+    );
+  }
+
+  if (!onboardingDone) {
+    return (
+      <GestureHandlerRootView style={styles.root}>
+        <ThemeProvider initialIsDark={initIsDark}>
+          <ThemedBackground>
+            <LanguageProvider initialLang={initLang}>
+              <OnboardingScreen onDone={() => setOnboardingDone(true)} />
+            </LanguageProvider>
+          </ThemedBackground>
+        </ThemeProvider>
+      </GestureHandlerRootView>
+    );
+  }
+
+  return (
+    <GestureHandlerRootView style={styles.root}>
+      <ThemeProvider initialIsDark={initIsDark}>
+        <ThemedBackground>
+          <LanguageProvider initialLang={initLang}>
+            <NavigationContainer>
+              <RootStack.Navigator screenOptions={{ headerShown: false }}>
+                <RootStack.Screen name="Main" component={MainTabs} />
+                <RootStack.Screen
+                  name="IntervalTimer"
+                  component={IntervalTimerScreen}
+                  options={{ gestureEnabled: false, presentation: 'fullScreenModal' }}
+                />
+                <RootStack.Screen
+                  name="PlanFinder"
+                  component={PlanFinderScreen}
+                  options={{ presentation: 'modal', gestureEnabled: true }}
+                />
+                <RootStack.Screen
+                  name="AddRun"
+                  component={AddRunScreen}
+                  options={{ presentation: 'modal', gestureEnabled: true }}
+                />
+              </RootStack.Navigator>
+            </NavigationContainer>
+          </LanguageProvider>
+        </ThemedBackground>
+      </ThemeProvider>
+    </GestureHandlerRootView>
+  );
+}
+
+const styles = StyleSheet.create({
+  root: { flex: 1 },
+});

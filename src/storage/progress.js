@@ -1,24 +1,46 @@
 import store from './asyncStorageAdapter';
+import { STORAGE_KEYS } from './keys';
+import { logError } from '../utils/logError';
+import { writeJson } from './storageHelper';
 
-const KEY = '@runner_app:plan_progress';
+const KEY = STORAGE_KEYS.PROGRESS;
+
+export const isSessionDone = (progress, planId, globalIdx) =>
+  !!(progress[planId]?.[globalIdx]);
 
 export const getProgress = async () => {
-  const json = await store.getItem(KEY);
-  return json ? JSON.parse(json) : {};
+  try {
+    const json = await store.getItem(KEY);
+    if (!json) return {};
+    const data = JSON.parse(json);
+    // Migrate old format { planId: { weekNum: { sessionIdx: bool } } } → { planId: { globalIdx: bool } }
+    const migrated = {};
+    for (const [planId, val] of Object.entries(data)) {
+      const firstVal = Object.values(val)[0];
+      migrated[planId] = (firstVal !== null && typeof firstVal === 'object') ? {} : val;
+    }
+    return migrated;
+  } catch (e) {
+    logError('getProgress', e);
+    return {};
+  }
 };
 
-export const toggleSession = async (planId, week, sessionIdx) => {
+export const toggleSession = async (planId, globalIdx) => {
   const progress = await getProgress();
-  if (!progress[planId]) progress[planId] = {};
-  if (!progress[planId][week]) progress[planId][week] = {};
-  const current = progress[planId][week][sessionIdx];
-  progress[planId][week][sessionIdx] = !current;
-  await store.setItem(KEY, JSON.stringify(progress));
-  return progress;
+  const planProgress = progress[planId] ?? {};
+  const updated = {
+    ...progress,
+    [planId]: { ...planProgress, [globalIdx]: !planProgress[globalIdx] },
+  };
+  await writeJson(KEY, updated);
+  return updated;
 };
 
-export const clearProgress = async (planId) => {
+export const clearPlanProgress = async (planId) => {
   const progress = await getProgress();
-  delete progress[planId];
-  await store.setItem(KEY, JSON.stringify(progress));
+  const { [planId]: _, ...updated } = progress;
+  await writeJson(KEY, updated);
 };
+
+export const clearAllProgress = () => writeJson(KEY, {});

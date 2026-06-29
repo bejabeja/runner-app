@@ -48,6 +48,29 @@ export const parseDurationInput = (input) => {
   return null;
 };
 
+export const formatRelativeDate = (iso, { t, locale, todayKey, yesterdayKey, fullDate = true }) => {
+  const d = new Date(iso);
+  const diff = Math.floor((Date.now() - d) / (1000 * 60 * 60 * 24));
+  if (diff === 0) return t(todayKey);
+  if (diff === 1) return t(yesterdayKey);
+  if (diff < 7) return d.toLocaleDateString(locale, { weekday: 'long' });
+  return fullDate
+    ? d.toLocaleDateString(locale, { day: 'numeric', month: 'short' })
+    : d.toLocaleDateString(locale, { weekday: 'long' });
+};
+
+export const formatMMSS = (secs) => {
+  if (secs === null || secs === undefined) return '--:--';
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+};
+
+export const formatISODate = (date) => {
+  const d = date instanceof Date ? date : new Date(date);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+
 export const getWeekStart = (date = new Date()) => {
   const d = new Date(date);
   const day = d.getDay();
