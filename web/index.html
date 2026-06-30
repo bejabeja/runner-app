@@ -19,12 +19,7 @@
       <span class="lang-sep" aria-hidden="true">·</span>
       <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
     </div>
-    <a href="#descarga" class="nav-cta">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-        <path d="M6.5 1v8M3 6.5l3.5 3.5L10 6.5M1 11h11" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span data-i18n="nav_cta">Descargar APK</span>
-    </a>
+    <div class="nav-soon" data-i18n="nav_soon">Próximamente en stores</div>
   </div>
 </nav>
 
@@ -33,17 +28,30 @@
   <div class="container">
     <div class="hero-inner">
       <div class="hero-content">
-        <span class="hero-eyebrow" data-i18n="hero_eyebrow">Gratis · Android · Sin registro</span>
+        <span class="hero-eyebrow" data-i18n="hero_eyebrow">iOS · Android · Próximamente</span>
         <h1 data-i18n-html="hero_h1">De sofá<br>a <em>5K.</em><br>En 8 semanas.</h1>
         <p class="hero-sub" data-i18n="hero_sub">Un timer de intervalos que te dice cuándo correr y cuándo caminar. Planes estructurados semana a semana. Tan simple como suena.</p>
         <div class="hero-actions">
-          <a href="#descarga" class="btn-primary">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M9 2v10M5 9l4 4 4-4M2 15h14" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span data-i18n="hero_btn">Descargar APK gratis</span>
-          </a>
-          <span class="hero-note" data-i18n="hero_note">Android 8.0+ · 0 datos personales</span>
+          <div class="store-badges">
+            <div class="store-badge">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              <div class="store-badge-text">
+                <span class="store-badge-soon" data-i18n="coming_soon">Próximamente</span>
+                <span class="store-badge-store">App Store</span>
+              </div>
+            </div>
+            <div class="store-badge">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <div class="store-badge-text">
+                <span class="store-badge-soon" data-i18n="coming_soon">Próximamente</span>
+                <span class="store-badge-store">Google Play</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -154,22 +162,22 @@
       <h2 data-i18n="phases_h2">Cada color, una instrucción.</h2>
     </div>
     <div class="phases-grid reveal">
-      <div class="phase-chip" style="background:#7A2C00">
+      <div class="phase-chip" style="background:#B45309">
         <div class="phase-chip-label" data-i18n="phase1_label">Calentamiento</div>
         <div class="phase-chip-desc"  data-i18n="phase1_desc">Activa los músculos antes de empezar. Siempre 5 minutos.</div>
         <div class="phase-chip-time">05:00</div>
       </div>
-      <div class="phase-chip" style="background:#8A2E00">
+      <div class="phase-chip" style="background:#C2410C">
         <div class="phase-chip-label" data-i18n="phase2_label">Correr</div>
         <div class="phase-chip-desc"  data-i18n="phase2_desc">Ritmo conversacional. Deberías poder hablar en frases cortas.</div>
         <div class="phase-chip-time">01:00 →</div>
       </div>
-      <div class="phase-chip" style="background:#1E3A7A">
+      <div class="phase-chip" style="background:#1D4ED8">
         <div class="phase-chip-label" data-i18n="phase3_label">Caminar</div>
         <div class="phase-chip-desc"  data-i18n="phase3_desc">Recuperación activa. No te pares, sigue moviéndote.</div>
         <div class="phase-chip-time">02:00 →</div>
       </div>
-      <div class="phase-chip" style="background:#3B1F7A">
+      <div class="phase-chip" style="background:#6D28D9">
         <div class="phase-chip-label" data-i18n="phase4_label">Vuelta calma</div>
         <div class="phase-chip-desc"  data-i18n="phase4_desc">Estiramiento ligero mientras caminas. Siempre 5 minutos.</div>
         <div class="phase-chip-time">05:00</div>
@@ -182,21 +190,35 @@
 <section class="cta-section" id="descarga">
   <div class="container">
     <div class="cta-inner reveal">
-      <span class="section-label" data-i18n="cta_label">Descarga</span>
-      <h2 data-i18n-html="cta_h2">Tu primer entreno<br>en 5 minutos.</h2>
-      <p data-i18n="cta_p">Instala el APK, elige tu plan y sal a correr. Sin crear cuenta, sin dar tu correo, sin nada.</p>
-      <div class="cta-steps">
-        <div class="cta-step"><span class="cta-step-num">01</span><span class="cta-step-text" data-i18n="step1">Descarga el APK</span></div>
-        <div class="cta-step"><span class="cta-step-num">02</span><span class="cta-step-text" data-i18n="step2">Permite fuentes desconocidas</span></div>
-        <div class="cta-step"><span class="cta-step-num">03</span><span class="cta-step-text" data-i18n="step3">Elige tu plan y empieza</span></div>
+      <span class="section-label" data-i18n="cta_label">Disponibilidad</span>
+      <h2 data-i18n-html="cta_h2">Próximamente<br>en iOS y Android.</h2>
+      <p data-i18n="cta_p">Estamos trabajando para publicar RunnerApp en la App Store y Google Play. Vuelve pronto.</p>
+      <form class="waitlist-form" id="waitlistForm">
+        <input type="email" class="waitlist-input" placeholder="tu@email.com" required autocomplete="email">
+        <button type="submit" class="waitlist-btn" data-i18n="waitlist_btn">Avísame</button>
+      </form>
+      <p class="waitlist-msg" id="waitlistMsg"></p>
+
+      <div class="store-badges store-badges--center">
+        <div class="store-badge">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <div class="store-badge-text">
+            <span class="store-badge-soon" data-i18n="coming_soon">Próximamente</span>
+            <span class="store-badge-store">App Store</span>
+          </div>
+        </div>
+        <div class="store-badge">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <div class="store-badge-text">
+            <span class="store-badge-soon" data-i18n="coming_soon">Próximamente</span>
+            <span class="store-badge-store">Google Play</span>
+          </div>
+        </div>
       </div>
-      <a href="#" class="btn-primary btn-large">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <path d="M10 2v12M5 11l5 5 5-5M2 17h16" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span data-i18n="cta_btn">Descargar RunnerApp APK</span>
-      </a>
-      <p class="cta-fine" data-i18n="cta_fine">Android 8.0 o superior · Gratis para siempre</p>
     </div>
   </div>
 </section>

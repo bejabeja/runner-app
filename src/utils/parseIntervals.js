@@ -112,10 +112,10 @@ export const parseIntervals = (description) => {
 };
 
 export const PHASE_CONFIG = {
-  run: { label: 'CORRER', bg: '#FF5C00', secondary: '#CC3D00', icon: 'fitness-outline' },
-  walk: { label: 'CAMINAR', bg: '#2563EB', secondary: '#1D4ED8', icon: 'walk-outline' },
-  warmup: { label: 'CALENTAMIENTO', bg: '#D97706', secondary: '#B45309', icon: 'flame-outline' },
-  cooldown: { label: 'VUELTA CALMA', bg: '#7C3AED', secondary: '#6D28D9', icon: 'snow-outline' },
+  run: { label: 'CORRER', bg: '#C2410C', secondary: '#9A3412', icon: 'fitness-outline' },
+  walk: { label: 'CAMINAR', bg: '#1D4ED8', secondary: '#1E40AF', icon: 'walk-outline' },
+  warmup: { label: 'CALENTAMIENTO', bg: '#B45309', secondary: '#92400E', icon: 'flame-outline' },
+  cooldown: { label: 'VUELTA CALMA', bg: '#6D28D9', secondary: '#5B21B6', icon: 'snow-outline' },
   rest: { label: 'DESCANSO', bg: '#059669', secondary: '#047857', icon: 'pause-outline' },
 };
 

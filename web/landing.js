@@ -5,12 +5,11 @@
 ═══════════════════════════════════════════════════════════ */
 var TRANSLATIONS = {
   es: {
-    nav_cta:          'Descargar APK',
-    hero_eyebrow:     'Gratis · Android · Sin registro',
+    nav_soon:         'Próximamente en stores',
+    coming_soon:      'Próximamente',
+    hero_eyebrow:     'iOS · Android · Próximamente',
     hero_h1:          'De sofá<br>a <em>5K.</em><br>En 8 semanas.',
     hero_sub:         'Un timer de intervalos que te dice cuándo correr y cuándo caminar. Planes estructurados semana a semana. Tan simple como suena.',
-    hero_btn:         'Descargar APK gratis',
-    hero_note:        'Android 8.0+ · 0 datos personales',
     features_label:   'Por qué funciona',
     features_h2:      'Todo lo que necesitas.<br>Nada de lo que no.',
     f1_title:         'El timer te habla',
@@ -35,14 +34,12 @@ var TRANSLATIONS = {
     phase3_desc:      'Recuperación activa. No te pares, sigue moviéndote.',
     phase4_label:     'Vuelta calma',
     phase4_desc:      'Estiramiento ligero mientras caminas. Siempre 5 minutos.',
-    cta_label:        'Descarga',
-    cta_h2:           'Tu primer entreno<br>en 5 minutos.',
-    cta_p:            'Instala el APK, elige tu plan y sal a correr. Sin crear cuenta, sin dar tu correo, sin nada.',
-    step1:            'Descarga el APK',
-    step2:            'Permite fuentes desconocidas',
-    step3:            'Elige tu plan y empieza',
-    cta_btn:          'Descargar RunnerApp APK',
-    cta_fine:         'Android 8.0 o superior · Gratis para siempre',
+    cta_label:        'Disponibilidad',
+    cta_h2:           'Próximamente<br>en iOS y Android.',
+    cta_p:            'Déjanos tu email y te avisamos el día que esté disponible.',
+    waitlist_btn:     'Avísame',
+    waitlist_ok:      '¡Apuntado! Te avisamos cuando esté lista.',
+    waitlist_err:     'Algo ha ido mal. Inténtalo de nuevo.',
     footer:           'RunnerApp · Hecho con cariño para principiantes · Gratis y sin anuncios',
     phone_day:         'Lunes',
     phone_next_label:  'A continuación',
@@ -55,12 +52,11 @@ var TRANSLATIONS = {
   },
 
   en: {
-    nav_cta:          'Download APK',
-    hero_eyebrow:     'Free · Android · No sign-up',
+    nav_soon:         'Coming soon to stores',
+    coming_soon:      'Coming soon',
+    hero_eyebrow:     'iOS · Android · Coming soon',
     hero_h1:          'Couch to<br><em>5K.</em><br>In 8 weeks.',
     hero_sub:         'An interval timer that tells you when to run and when to walk. Structured week-by-week plans. As simple as it sounds.',
-    hero_btn:         'Download APK for free',
-    hero_note:        'Android 8.0+ · Zero personal data',
     features_label:   'Why it works',
     features_h2:      'Everything you need.<br>Nothing you don\'t.',
     f1_title:         'The timer talks to you',
@@ -85,14 +81,12 @@ var TRANSLATIONS = {
     phase3_desc:      'Active recovery. Don\'t stop, keep moving.',
     phase4_label:     'Cool-down',
     phase4_desc:      'Light stretching while walking. Always 5 minutes.',
-    cta_label:        'Download',
-    cta_h2:           'First workout<br>in 5 minutes.',
-    cta_p:            'Install the APK, pick your plan, and go run. No account, no email, nothing.',
-    step1:            'Download the APK',
-    step2:            'Allow unknown sources',
-    step3:            'Pick your plan and start',
-    cta_btn:          'Download RunnerApp APK',
-    cta_fine:         'Android 8.0 or higher · Free forever',
+    cta_label:        'Availability',
+    cta_h2:           'Coming soon<br>to iOS & Android.',
+    cta_p:            'Leave your email and we\'ll notify you the day it\'s available.',
+    waitlist_btn:     'Notify me',
+    waitlist_ok:      'You\'re in! We\'ll let you know when it\'s ready.',
+    waitlist_err:     'Something went wrong. Please try again.',
     footer:           'RunnerApp · Made with care for beginners · Free, no ads',
     phone_day:        'Monday',
     phone_next_label: 'Up next',
@@ -115,7 +109,7 @@ var remaining = 0;
 
 function buildPhases(t) {
   return [
-    { name: t.phone_warmup,   icon: '🔥', bg: '#7A2C00', duration: 300, counter: t.phone_warmup,                      next: t.phone_run      },
+    { name: t.phone_warmup,   icon: '🔥', bg: '#B45309', duration: 300, counter: t.phone_warmup,                      next: t.phone_run      },
     { name: t.phone_run,      icon: '🏃', bg: '#8A2E00', duration: 60,  counter: t.phone_interval + ' 1 / 8',         next: t.phone_walk     },
     { name: t.phone_walk,     icon: '🚶', bg: '#1E3A7A', duration: 120, counter: t.phone_interval + ' 1 / 8',         next: t.phone_run      },
     { name: t.phone_run,      icon: '🏃', bg: '#8A2E00', duration: 60,  counter: t.phone_interval + ' 2 / 8',         next: t.phone_walk     },
@@ -275,6 +269,43 @@ function drawChart() {
     drawBar(x, PAD_T + chartH - runH, halfBar, runH);
   });
 }
+
+/* ═══════════════════════════════════════════════════════════
+   WAITLIST FORM
+═══════════════════════════════════════════════════════════ */
+(function initWaitlist() {
+  var form = document.getElementById('waitlistForm');
+  var msg  = document.getElementById('waitlistMsg');
+  if (!form) return;
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var email = form.querySelector('input[type="email"]').value.trim();
+    var btn   = form.querySelector('button');
+    btn.disabled = true;
+    msg.className = 'waitlist-msg';
+    msg.textContent = '';
+
+    try {
+      var res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        msg.className = 'waitlist-msg ok';
+        msg.textContent = TRANSLATIONS[currentLang].waitlist_ok;
+        form.reset();
+      } else {
+        throw new Error();
+      }
+    } catch (_) {
+      msg.className = 'waitlist-msg err';
+      msg.textContent = TRANSLATIONS[currentLang].waitlist_err;
+      btn.disabled = false;
+    }
+  });
+})();
 
 /* ═══════════════════════════════════════════════════════════
    SCROLL REVEALS
