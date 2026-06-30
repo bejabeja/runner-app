@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Trote",
-    "slug": "trote",
+    "name": "RunnerApp",
+    "slug": "runner-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
