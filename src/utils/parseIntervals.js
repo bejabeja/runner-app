@@ -14,6 +14,7 @@ const RE_SIMPLE_MIN = /(\d+) min/;
 const RE_VERB_MIN = /([Tt]rote|[Cc]orre|[Cc]amina).*?(\d+) min/;
 
 export const parseIntervals = (description) => {
+  if (!description) return null;
   const d = description;
 
   // "X min calentamiento + Alterna Y min corriendo y Z min caminando × N + W min vuelta calma"

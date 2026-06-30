@@ -112,7 +112,7 @@ export function useIntervalTimer(intervals, { planId, sessionIdx, plan, week, da
 
   const scheduleNotifs = (fromPhaseIdx, alreadyElapsed) => {
     if (!hasParsed || !notifGrantedRef.current) return;
-    schedulePhaseNotifications(intervals, fromPhaseIdx, alreadyElapsed, language);
+    schedulePhaseNotifications(intervals, fromPhaseIdx, alreadyElapsed, language).catch(() => {});
   };
 
   const start = async () => {
@@ -147,7 +147,7 @@ export function useIntervalTimer(intervals, { planId, sessionIdx, plan, week, da
     if (countdown === null) return;
     if (countdown === 0) {
       setCountdown(null);
-      start();
+      start().catch(() => {});
       return;
     }
     playCountdown();
