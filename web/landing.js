@@ -5,97 +5,125 @@
 ═══════════════════════════════════════════════════════════ */
 var TRANSLATIONS = {
   es: {
-    nav_soon:         'Próximamente en stores',
-    coming_soon:      'Próximamente',
-    hero_eyebrow:     'iOS · Android · Próximamente',
-    hero_h1:          'De sofá<br>a <em>5K.</em><br>En 8 semanas.',
-    hero_sub:         'Un timer de intervalos que te dice cuándo correr y cuándo caminar. Planes estructurados semana a semana. Tan simple como suena.',
-    features_label:   'Por qué funciona',
-    features_h2:      'Todo lo que necesitas.<br>Nada de lo que no.',
-    f1_title:         'El timer te habla',
-    f1_desc:          'La app anuncia cada cambio de fase en voz alta. Guarda el móvil en el bolsillo y escucha: <em>"Corre"</em>, <em>"Camina"</em>, <em>"Descansa"</em>.',
-    f2_title:         'Planes listos para usar',
-    f2_desc:          'Elige tu objetivo: 5K, 10K o media maratón, y sigue el plan día a día. Cada sesión ya tiene los intervalos calculados.',
-    f3_title:         'Pantalla encendida',
-    f3_desc:          'El móvil no se apaga durante el entreno. El timer sigue visible en la pantalla de bloqueo con controles de pausa y salto de fase.',
-    journey_label:    'El plan de 8 semanas',
-    journey_h2:       'Menos caminar.<br>Más correr. Semana a semana.',
-    legend_run:       'Minutos corriendo',
-    legend_walk:      'Minutos caminando',
+    nav_soon: 'Próximamente en stores',
+    coming_soon: 'Próximamente',
+    hero_eyebrow: 'iOS · Android · Próximamente',
+    hero_h1: 'De sofá a<br><em>5K</em><br>En 8 semanas',
+    hero_sub: 'Un timer de intervalos que te dice cuándo correr y cuándo caminar. Planes estructurados semana a semana. Tan simple como suena.',
+    hero_btn: 'Avísame cuando esté disponible',
+    hero_note: 'Sin spam · Un solo email',
+    stat_weeks: 'semanas',
+    stat_days: 'días / semana',
+    stat_mins: 'min / sesión',
+    week_prefix: 'S',
+    features_label: 'Por qué funciona',
+    features_h2: 'Todo lo que necesitas.<br>Nada de lo que no.',
+    f1_title: 'El timer te habla',
+    f1_desc: 'La app anuncia cada cambio de fase en voz alta. Guarda el móvil en el bolsillo y escucha: <em>"Corre"</em>, <em>"Camina"</em>, <em>"Descansa"</em>.',
+    f2_title: 'Planes listos para usar',
+    f2_desc: 'Elige tu objetivo: 5K, 10K o media maratón, y sigue el plan día a día. Cada sesión ya tiene los intervalos calculados.',
+    f3_title: 'Pantalla encendida',
+    f3_desc: 'El móvil no se apaga durante el entreno. El timer sigue visible en la pantalla de bloqueo con controles de pausa y salto de fase.',
+    journey_label: 'El plan de 8 semanas',
+    journey_h2: 'Menos caminar.<br>Más correr. Semana a semana.',
+    legend_run: 'Minutos corriendo',
+    legend_walk: 'Minutos caminando',
     journey_footnote: 'Datos de la sesión del miércoles · Plan 5K para principiantes',
-    chart_5k:         '5K',
-    phases_label:     'Fases del entrenamiento',
-    phases_h2:        'Cada color, una instrucción.',
-    phase1_label:     'Calentamiento',
-    phase1_desc:      'Activa los músculos antes de empezar. Siempre 5 minutos.',
-    phase2_label:     'Correr',
-    phase2_desc:      'Ritmo conversacional. Deberías poder hablar en frases cortas.',
-    phase3_label:     'Caminar',
-    phase3_desc:      'Recuperación activa. No te pares, sigue moviéndote.',
-    phase4_label:     'Vuelta calma',
-    phase4_desc:      'Estiramiento ligero mientras caminas. Siempre 5 minutos.',
-    cta_label:        'Disponibilidad',
-    cta_h2:           'Próximamente<br>en iOS y Android.',
-    cta_p:            'Déjanos tu email y te avisamos el día que esté disponible.',
-    waitlist_btn:     'Avísame',
-    waitlist_ok:      '¡Apuntado! Te avisamos cuando esté lista.',
-    waitlist_err:     'Algo ha ido mal. Inténtalo de nuevo.',
-    footer:           'RunnerApp · Hecho con cariño para principiantes · Gratis y sin anuncios',
-    phone_day:         'Lunes',
-    phone_next_label:  'A continuación',
-    phone_warmup:      'Calentamiento',
-    phone_run:         'Correr',
-    phone_walk:        'Caminar',
-    phone_cooldown:    'Vuelta calma',
-    phone_interval:    'Intervalo',
-    phone_of:          'de',
+    chart_5k: '5K',
+    phases_label: 'Fases del entrenamiento',
+    phases_h2: 'Cada color, una instrucción.',
+    phase1_label: 'Calentamiento',
+    phase1_desc: 'Activa los músculos antes de empezar. Siempre 5 minutos.',
+    phase2_label: 'Correr',
+    phase2_desc: 'Ritmo conversacional. Deberías poder hablar en frases cortas.',
+    phase3_label: 'Caminar',
+    phase3_desc: 'Recuperación activa. No te pares, sigue moviéndote.',
+    phase4_label: 'Vuelta calma',
+    phase4_desc: 'Estiramiento ligero mientras caminas. Siempre 5 minutos.',
+    faq_label: 'Preguntas frecuentes',
+    faq_h2: 'Lo que todo el mundo pregunta.',
+    faq1_q: '¿Es gratis?',
+    faq1_a: 'Sí, completamente gratis para empezar. Sin suscripción para el plan básico de 5K.',
+    faq2_q: '¿Funciona sin conexión a internet?',
+    faq2_a: 'Sí. Una vez instalada no necesitas internet para nada. Puedes salir a correr en el monte sin cobertura y la app funciona igual.',
+    faq3_q: '¿Para qué nivel es?',
+    faq3_a: 'Para principiantes absolutos. Si nunca has corrido o llevas años sin hacerlo, esta app es para ti. El plan empieza desde cero y va aumentando poco a poco.',
+    cta_label: 'Lista de espera',
+    cta_h2: 'Próximamente<br>en iOS y Android.',
+    cta_p: 'Déjanos tu email y te avisamos el día que esté disponible.',
+    waitlist_btn: 'Avísame',
+    waitlist_ok: '¡Apuntado! Te avisamos cuando esté lista.',
+    waitlist_err: 'Algo ha ido mal. Inténtalo de nuevo.',
+    footer: 'Trote · Hecho con cariño para principiantes',
+    phone_day: 'Lunes',
+    phone_next_label: 'A continuación',
+    phone_warmup: 'Calentamiento',
+    phone_run: 'Correr',
+    phone_walk: 'Caminar',
+    phone_cooldown: 'Vuelta calma',
+    phone_interval: 'Intervalo',
+    phone_of: 'de',
   },
 
   en: {
-    nav_soon:         'Coming soon to stores',
-    coming_soon:      'Coming soon',
-    hero_eyebrow:     'iOS · Android · Coming soon',
-    hero_h1:          'Couch to<br><em>5K.</em><br>In 8 weeks.',
-    hero_sub:         'An interval timer that tells you when to run and when to walk. Structured week-by-week plans. As simple as it sounds.',
-    features_label:   'Why it works',
-    features_h2:      'Everything you need.<br>Nothing you don\'t.',
-    f1_title:         'The timer talks to you',
-    f1_desc:          'The app announces every phase change out loud. Pocket your phone and listen: <em>"Run"</em>, <em>"Walk"</em>, <em>"Rest"</em>.',
-    f2_title:         'Ready-to-use plans',
-    f2_desc:          'Pick your goal: 5K, 10K, or half marathon, and follow the plan day by day. Every session has the intervals pre-calculated.',
-    f3_title:         'Screen stays on',
-    f3_desc:          'Your phone won\'t sleep during workouts. The timer stays visible on the lock screen with pause and skip controls.',
-    journey_label:    'The 8-week plan',
-    journey_h2:       'Less walking.<br>More running. Week by week.',
-    legend_run:       'Running minutes',
-    legend_walk:      'Walking minutes',
+    nav_soon: 'Coming soon to stores',
+    coming_soon: 'Coming soon',
+    hero_eyebrow: 'iOS · Android · Coming soon',
+    hero_h1: 'Couch to<br><em>5K</em><br>In 8 weeks',
+    hero_sub: 'An interval timer that tells you when to run and when to walk. Structured week-by-week plans. As simple as it sounds.',
+    hero_btn: 'Notify me when it\'s available',
+    hero_note: 'No spam · One email only',
+    stat_weeks: 'weeks',
+    stat_days: 'days / week',
+    stat_mins: 'min / session',
+    week_prefix: 'W',
+    features_label: 'Why it works',
+    features_h2: 'Everything you need.<br>Nothing you don\'t.',
+    f1_title: 'The timer talks to you',
+    f1_desc: 'The app announces every phase change out loud. Pocket your phone and listen: <em>"Run"</em>, <em>"Walk"</em>, <em>"Rest"</em>.',
+    f2_title: 'Ready-to-use plans',
+    f2_desc: 'Pick your goal: 5K, 10K, or half marathon, and follow the plan day by day. Every session has the intervals pre-calculated.',
+    f3_title: 'Screen stays on',
+    f3_desc: 'Your phone won\'t sleep during workouts. The timer stays visible on the lock screen with pause and skip controls.',
+    journey_label: 'The 8-week plan',
+    journey_h2: 'Less walking.<br>More running. Week by week.',
+    legend_run: 'Running minutes',
+    legend_walk: 'Walking minutes',
     journey_footnote: 'Wednesday session data · 5K beginner plan',
-    chart_5k:         '5K',
-    phases_label:     'Training phases',
-    phases_h2:        'Every colour, one instruction.',
-    phase1_label:     'Warm-up',
-    phase1_desc:      'Get the muscles going before you start. Always 5 minutes.',
-    phase2_label:     'Run',
-    phase2_desc:      'Conversational pace. You should be able to speak in short sentences.',
-    phase3_label:     'Walk',
-    phase3_desc:      'Active recovery. Don\'t stop, keep moving.',
-    phase4_label:     'Cool-down',
-    phase4_desc:      'Light stretching while walking. Always 5 minutes.',
-    cta_label:        'Availability',
-    cta_h2:           'Coming soon<br>to iOS & Android.',
-    cta_p:            'Leave your email and we\'ll notify you the day it\'s available.',
-    waitlist_btn:     'Notify me',
-    waitlist_ok:      'You\'re in! We\'ll let you know when it\'s ready.',
-    waitlist_err:     'Something went wrong. Please try again.',
-    footer:           'RunnerApp · Made with care for beginners · Free, no ads',
-    phone_day:        'Monday',
+    chart_5k: '5K',
+    phases_label: 'Training phases',
+    phases_h2: 'Every colour, one instruction.',
+    phase1_label: 'Warm-up',
+    phase1_desc: 'Get the muscles going before you start. Always 5 minutes.',
+    phase2_label: 'Run',
+    phase2_desc: 'Conversational pace. You should be able to speak in short sentences.',
+    phase3_label: 'Walk',
+    phase3_desc: 'Active recovery. Don\'t stop, keep moving.',
+    phase4_label: 'Cool-down',
+    phase4_desc: 'Light stretching while walking. Always 5 minutes.',
+    faq_label: 'FAQ',
+    faq_h2: 'What everyone asks.',
+    faq1_q: 'Is it free?',
+    faq1_a: 'Yes, free to start. No subscription needed for the basic 5K plan.',
+    faq2_q: 'Does it work offline?',
+    faq2_a: 'Yes. Once installed you don\'t need internet at all. You can go running in the mountains with no signal and the app works just fine.',
+    faq3_q: 'What level is it for?',
+    faq3_a: 'Absolute beginners. If you\'ve never run before or haven\'t in years, this app is for you. The plan starts from zero and builds up gradually.',
+    cta_label: 'Waitlist',
+    cta_h2: 'Coming soon<br>to iOS & Android.',
+    cta_p: 'Leave your email and we\'ll notify you the day it\'s available.',
+    waitlist_btn: 'Notify me',
+    waitlist_ok: 'You\'re in! We\'ll let you know when it\'s ready.',
+    waitlist_err: 'Something went wrong. Please try again.',
+    footer: 'Trote · Made with care for beginners',
+    phone_day: 'Monday',
     phone_next_label: 'Up next',
-    phone_warmup:     'Warm-up',
-    phone_run:        'Run',
-    phone_walk:       'Walk',
-    phone_cooldown:   'Cool-down',
-    phone_interval:   'Interval',
-    phone_of:         'of',
+    phone_warmup: 'Warm-up',
+    phone_run: 'Run',
+    phone_walk: 'Walk',
+    phone_cooldown: 'Cool-down',
+    phone_interval: 'Interval',
+    phone_of: 'of',
   },
 };
 
@@ -109,12 +137,12 @@ var remaining = 0;
 
 function buildPhases(t) {
   return [
-    { name: t.phone_warmup,   icon: '🔥', bg: '#B45309', duration: 300, counter: t.phone_warmup,                      next: t.phone_run      },
-    { name: t.phone_run,      icon: '🏃', bg: '#8A2E00', duration: 60,  counter: t.phone_interval + ' 1 / 8',         next: t.phone_walk     },
-    { name: t.phone_walk,     icon: '🚶', bg: '#1E3A7A', duration: 120, counter: t.phone_interval + ' 1 / 8',         next: t.phone_run      },
-    { name: t.phone_run,      icon: '🏃', bg: '#8A2E00', duration: 60,  counter: t.phone_interval + ' 2 / 8',         next: t.phone_walk     },
-    { name: t.phone_walk,     icon: '🚶', bg: '#1E3A7A', duration: 120, counter: t.phone_interval + ' 2 / 8',         next: t.phone_cooldown },
-    { name: t.phone_cooldown, icon: '❄️', bg: '#3B1F7A', duration: 300, counter: t.phone_cooldown,                    next: null             },
+    { name: t.phone_warmup, icon: '🔥', bg: '#B45309', duration: 300, counter: t.phone_warmup, next: t.phone_run },
+    { name: t.phone_run, icon: '🏃', bg: '#8A2E00', duration: 60, counter: t.phone_interval + ' 1 / 8', next: t.phone_walk },
+    { name: t.phone_walk, icon: '🚶', bg: '#1E3A7A', duration: 120, counter: t.phone_interval + ' 1 / 8', next: t.phone_run },
+    { name: t.phone_run, icon: '🏃', bg: '#8A2E00', duration: 60, counter: t.phone_interval + ' 2 / 8', next: t.phone_walk },
+    { name: t.phone_walk, icon: '🚶', bg: '#1E3A7A', duration: 120, counter: t.phone_interval + ' 2 / 8', next: t.phone_cooldown },
+    { name: t.phone_cooldown, icon: '❄️', bg: '#3B1F7A', duration: 300, counter: t.phone_cooldown, next: null },
   ];
 }
 
@@ -125,18 +153,22 @@ function setLanguage(lang) {
 
   document.documentElement.lang = lang;
 
-  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
     var key = el.getAttribute('data-i18n');
     if (t[key] !== undefined) el.textContent = t[key];
   });
 
-  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+  document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
     var key = el.getAttribute('data-i18n-html');
     if (t[key] !== undefined) el.innerHTML = t[key];
   });
 
-  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+  document.querySelectorAll('.lang-btn').forEach(function (btn) {
     btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+
+  document.querySelectorAll('[data-week]').forEach(function (el) {
+    el.textContent = t.week_prefix + el.getAttribute('data-week');
   });
 
   currentPhases = buildPhases(t);
@@ -144,7 +176,7 @@ function setLanguage(lang) {
   remaining = currentPhases[0].duration;
   applyPhase(phaseIdx, remaining);
 
-  try { localStorage.setItem('runnerapp_lang', lang); } catch(e) {}
+  try { localStorage.setItem('trote_lang', lang); } catch (e) { }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -178,14 +210,14 @@ function updateDots(activeIdx) {
 function applyPhase(idx, rem) {
   var p = currentPhases[idx];
   EL.screen.style.background = p.bg;
-  EL.name.textContent    = p.name;
-  EL.icon.textContent    = p.icon;
+  EL.name.textContent = p.name;
+  EL.icon.textContent = p.icon;
   EL.counter.textContent = p.counter;
-  EL.timer.textContent   = fmt(rem);
-  EL.of.textContent      = TRANSLATIONS[currentLang].phone_of + ' ' + fmt(p.duration);
-  EL.fill.style.width    = ((p.duration - rem) / p.duration) * 100 + '%';
+  EL.timer.textContent = fmt(rem);
+  EL.of.textContent = TRANSLATIONS[currentLang].phone_of + ' ' + fmt(p.duration);
+  EL.fill.style.width = ((p.duration - rem) / p.duration) * 100 + '%';
   if (p.next) {
-    EL.next.style.display   = 'flex';
+    EL.next.style.display = 'flex';
     EL.nextName.textContent = p.next;
   } else {
     EL.next.style.display = 'none';
@@ -210,10 +242,10 @@ var weekData = [
   { run: 14, walk: 14 },
   { run: 18, walk: 12 },
   { run: 20, walk: 10 },
-  { run: 18, walk:  6 },
-  { run: 20, walk:  0 },
-  { run: 25, walk:  0 },
-  { run: 30, walk:  0 },
+  { run: 18, walk: 6 },
+  { run: 20, walk: 0 },
+  { run: 25, walk: 0 },
+  { run: 30, walk: 0 },
 ];
 
 function drawChart() {
@@ -236,7 +268,7 @@ function drawChart() {
   var innerBar = barW * 0.55;
   var halfBar = innerBar / 2 - 1;
 
-  [0, 10, 20, 30].forEach(function(v) {
+  [0, 10, 20, 30].forEach(function (v) {
     var y = PAD_T + chartH - (v / maxVal) * chartH;
     ctx.beginPath();
     ctx.moveTo(PAD_L, y);
@@ -257,7 +289,7 @@ function drawChart() {
     ctx.fill();
   }
 
-  weekData.forEach(function(w, i) {
+  weekData.forEach(function (w, i) {
     var x = PAD_L + i * barW + (barW - innerBar) / 2;
     if (w.walk > 0) {
       var walkH = (w.walk / maxVal) * chartH;
@@ -275,13 +307,13 @@ function drawChart() {
 ═══════════════════════════════════════════════════════════ */
 (function initWaitlist() {
   var form = document.getElementById('waitlistForm');
-  var msg  = document.getElementById('waitlistMsg');
+  var msg = document.getElementById('waitlistMsg');
   if (!form) return;
 
-  form.addEventListener('submit', async function(e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
     var email = form.querySelector('input[type="email"]').value.trim();
-    var btn   = form.querySelector('button');
+    var btn = form.querySelector('button');
     btn.disabled = true;
     msg.className = 'waitlist-msg';
     msg.textContent = '';
@@ -311,32 +343,32 @@ function drawChart() {
    SCROLL REVEALS
 ═══════════════════════════════════════════════════════════ */
 var observer = new IntersectionObserver(
-  function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
   },
   { threshold: 0.12 }
 );
-document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
 
 /* ═══════════════════════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════════════════════ */
 (function init() {
-  EL.screen   = document.getElementById('phoneScreen');
-  EL.name     = document.getElementById('phaseName');
-  EL.icon     = document.getElementById('phaseIcon');
-  EL.counter  = document.getElementById('phaseCounter');
-  EL.timer    = document.getElementById('phoneTimer');
-  EL.of       = document.getElementById('phoneOf');
-  EL.fill     = document.getElementById('progressFill');
-  EL.next     = document.getElementById('phoneNext');
+  EL.screen = document.getElementById('phoneScreen');
+  EL.name = document.getElementById('phaseName');
+  EL.icon = document.getElementById('phaseIcon');
+  EL.counter = document.getElementById('phaseCounter');
+  EL.timer = document.getElementById('phoneTimer');
+  EL.of = document.getElementById('phoneOf');
+  EL.fill = document.getElementById('progressFill');
+  EL.next = document.getElementById('phoneNext');
   EL.nextName = document.getElementById('nextPhaseName');
-  EL.dots     = document.getElementById('phoneDots');
+  EL.dots = document.getElementById('phoneDots');
 
   initDots();
 
   var saved = null;
-  try { saved = localStorage.getItem('runnerapp_lang'); } catch(e) {}
+  try { saved = localStorage.getItem('trote_lang'); } catch (e) { }
   var browser = (navigator.language || navigator.userLanguage || 'es').slice(0, 2).toLowerCase();
   var detected = saved || (TRANSLATIONS[browser] ? browser : 'es');
 

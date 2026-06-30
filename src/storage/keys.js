@@ -1,8 +1,8 @@
 export const STORAGE_KEYS = {
-  RUNS:          '@runner_app:runs',
-  ACTIVE_PLAN:   '@runner_app:active_plan',
-  PROGRESS:      '@runner_app:plan_progress',
-  ONBOARDING:    '@runner_app:onboarding_done',
-  LANGUAGE:      '@runner_app:language',
-  THEME:         '@runner_app:theme',
+  RUNS:          '@trote:runs',
+  ACTIVE_PLAN:   '@trote:active_plan',
+  PROGRESS:      '@trote:plan_progress',
+  ONBOARDING:    '@trote:onboarding_done',
+  LANGUAGE:      '@trote:language',
+  THEME:         '@trote:theme',
 };

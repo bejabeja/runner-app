@@ -40,8 +40,8 @@ const makeStyles = (colors, s = 1) => {
       backgroundColor: colors.surfaceElevated, borderRadius: radius.xxl,
       marginBottom: spacing.md, overflow: 'hidden',
       borderWidth: 1, borderColor: colors.border,
-      shadowColor: colors.primary, shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.12, shadowRadius: 16, elevation: 4,
+      shadowColor: '#000', shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.18, shadowRadius: 16, elevation: 4,
     },
     heroStripe: { height: 4, backgroundColor: colors.primary },
     heroContent: { padding: spacing.lg, gap: spacing.sm },
@@ -99,6 +99,7 @@ const makeStyles = (colors, s = 1) => {
       width: 34, height: 34, borderRadius: 17,
       borderWidth: 1.5, borderColor: colors.success + '66',
       alignItems: 'center', justifyContent: 'center',
+      backgroundColor: 'transparent', overflow: 'hidden',
     },
 
     restCard: {
@@ -124,6 +125,7 @@ const makeStyles = (colors, s = 1) => {
       width: 34, height: 34, borderRadius: 17,
       borderWidth: 1.5, borderColor: colors.primary + '55',
       alignItems: 'center', justifyContent: 'center',
+      backgroundColor: 'transparent', overflow: 'hidden',
     },
     nextLabel: { fontSize: 10, fontWeight: '700', color: colors.primary, letterSpacing: 1, marginBottom: 3 },
     nextTitle: { fontSize: fs(14), fontWeight: '700', color: colors.text },
@@ -160,7 +162,9 @@ const makeStyles = (colors, s = 1) => {
     pendingDist: { fontSize: 13, fontWeight: '600', color: colors.textSecondary },
     pendingPlay: {
       width: 32, height: 32, borderRadius: 16,
-      borderWidth: 1.5, borderColor: colors.primary + '66', alignItems: 'center', justifyContent: 'center',
+      borderWidth: 1.5, borderColor: colors.primary + '66',
+      alignItems: 'center', justifyContent: 'center',
+      backgroundColor: 'transparent', overflow: 'hidden',
     },
 
     progressCard: {

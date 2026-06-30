@@ -1,8 +1,6 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { radius, spacing, typography } from '../../theme';
 import { useTheme } from '../../ThemeContext';
-
-const { width: SCREEN_W } = Dimensions.get('window');
 
 export function useTimerStyles() {
   const { colors } = useTheme();
@@ -41,7 +39,7 @@ const makeStyles = (colors) => StyleSheet.create({
 
   timerBlock: { alignItems: 'center', width: '100%', marginBottom: spacing.lg },
   phaseCard: {
-    width: SCREEN_W - spacing.md * 2,
+    alignSelf: 'stretch',
     backgroundColor: colors.surface,
     borderRadius: radius.xl,
     alignItems: 'center',
@@ -53,6 +51,12 @@ const makeStyles = (colors) => StyleSheet.create({
     shadowOpacity: 0.12,
     shadowRadius: 16,
     elevation: 4,
+  },
+  // Active state: dark tint integrates with phase color, no shadow/border artifacts on Android
+  phaseCardActive: {
+    backgroundColor: 'rgba(0,0,0,0.18)',
+    elevation: 0,
+    shadowOpacity: 0,
   },
   phaseLabel: { fontSize: 26, fontWeight: '800', letterSpacing: 3, color: colors.text },
   timerBig: {

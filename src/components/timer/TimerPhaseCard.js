@@ -9,7 +9,10 @@ export default function TimerPhaseCard({ status, config, hasParsed, currentPhase
   const { t } = useLanguage();
   return (
     <View style={styles.timerBlock}>
-      <View style={[styles.phaseCard, status !== 'idle' && { backgroundColor: 'rgba(255,255,255,0.15)' }]}>
+      <View style={[
+        styles.phaseCard,
+        status !== 'idle' && styles.phaseCardActive,
+      ]}>
         {hasParsed && (
           <>
             <Ionicons name={config.icon} size={36} color={status !== 'idle' ? '#fff' : config.bg} />
@@ -30,7 +33,7 @@ export default function TimerPhaseCard({ status, config, hasParsed, currentPhase
         )}
 
         {phaseDuration && (
-          <View style={styles.phaseTrack}>
+          <View style={[styles.phaseTrack, status !== 'idle' && { backgroundColor: 'rgba(255,255,255,0.25)' }]}>
             <View style={[
               styles.phaseFill,
               {

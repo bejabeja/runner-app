@@ -1,5 +1,16 @@
-import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
 import { Platform } from 'react-native';
+
+// Notifee is a native module — not available in Expo Go.
+// All functions below are no-ops when it's missing.
+let notifee = null;
+let AndroidImportance = {};
+let EventType = {};
+try {
+  const mod = require('@notifee/react-native');
+  notifee = mod.default;
+  AndroidImportance = mod.AndroidImportance;
+  EventType = mod.EventType;
+} catch (_) {}
 
 const NOTIF_ID = 'runner-live-timer';
 const CHANNEL_ID = 'live-timer';
@@ -26,7 +37,7 @@ export function setActionHandler(fn) {
 
 // Must be called once at app startup (in index.js) before any foreground notification is shown.
 export function registerForegroundService() {
-  if (Platform.OS !== 'android') return;
+  if (Platform.OS !== 'android' || !notifee) return;
   notifee.registerForegroundService(() =>
     new Promise(resolve => { _stopServiceFn = resolve; })
   );
@@ -34,7 +45,7 @@ export function registerForegroundService() {
 
 // Must be called once at app startup (in index.js).
 export function setupListeners() {
-  if (Platform.OS !== 'android') return () => {};
+  if (Platform.OS !== 'android' || !notifee) return () => {};
   notifee.onBackgroundEvent(async ({ type, detail }) => {
     if (type === EventType.ACTION_PRESS) _actionHandlerFn?.(detail.pressAction.id);
   });
@@ -44,6 +55,7 @@ export function setupListeners() {
 }
 
 async function ensureChannel() {
+  if (!notifee) return;
   await notifee.createChannel({
     id: CHANNEL_ID,
     name: 'Entreno en vivo',
@@ -87,7 +99,7 @@ export async function showLiveTimer({ phaseType, lang = 'es', remaining, totalEl
 }
 
 export async function stopLiveTimer() {
-  if (Platform.OS !== 'android') return;
+  if (Platform.OS !== 'android' || !notifee) return;
   await notifee.cancelNotification(NOTIF_ID).catch(() => {});
   _stopServiceFn?.();
   _stopServiceFn = null;

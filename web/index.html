@@ -3,9 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RunnerApp - De sofá a 5K en 8 semanas</title>
-  <meta name="description" content="Timer de intervalos con voz guiada y planes de entrenamiento estructurados. Gratis, sin suscripción, para principiantes absolutos.">
+  <title>Trote - De sofá a 5K en 8 semanas</title>
+  <meta name="description" content="Timer de intervalos con voz guiada y planes de entrenamiento semana a semana. Para quien nunca ha corrido. Próximamente en iOS y Android.">
   <meta name="theme-color" content="#FF5C00">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' rx='44' fill='%230B0D12'/><g stroke='%23FF5C00' stroke-linecap='round' fill='none'><circle cx='117' cy='27' r='17' fill='%23FF5C00' stroke='none'/><line x1='111' y1='44' x2='90' y2='110' stroke-width='21'/><line x1='104' y1='60' x2='140' y2='46' stroke-width='13'/><line x1='108' y1='67' x2='74' y2='84' stroke-width='13'/><line x1='92' y1='108' x2='118' y2='152' stroke-width='19'/><line x1='118' y1='152' x2='136' y2='186' stroke-width='17'/><line x1='94' y1='112' x2='72' y2='154' stroke-width='19'/><line x1='72' y1='154' x2='50' y2='116' stroke-width='15'/></g></svg>">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Trote - De sofá a 5K en 8 semanas">
+  <meta property="og:description" content="Timer de intervalos con voz guiada y planes semana a semana. Para quien nunca ha corrido. Próximamente en iOS y Android.">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Trote - De sofá a 5K en 8 semanas">
+  <meta name="twitter:description" content="Timer de intervalos con voz guiada y planes semana a semana. Para quien nunca ha corrido.">
+
   <link rel="stylesheet" href="landing.css">
 </head>
 <body>
@@ -13,13 +29,27 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <div class="logo">Runner<span>App</span></div>
+    <div class="logo">
+      <svg class="logo-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="200" height="200" rx="44" fill="#0B0D12"/>
+        <g stroke="#FF5C00" stroke-linecap="round" fill="none">
+          <circle cx="117" cy="27" r="17" fill="#FF5C00" stroke="none"/>
+          <line x1="111" y1="44" x2="90"  y2="110" stroke-width="21"/>
+          <line x1="104" y1="60" x2="140" y2="46"  stroke-width="13"/>
+          <line x1="108" y1="67" x2="74"  y2="84"  stroke-width="13"/>
+          <line x1="92"  y1="108" x2="118" y2="152" stroke-width="19"/>
+          <line x1="118" y1="152" x2="136" y2="186" stroke-width="17"/>
+          <line x1="94"  y1="112" x2="72"  y2="154" stroke-width="19"/>
+          <line x1="72"  y1="154" x2="50"  y2="116" stroke-width="15"/>
+        </g>
+      </svg><span class="logo-name">Tro<span class="logo-hi">te</span></span>
+    </div>
     <div class="lang-switcher" role="group" aria-label="Idioma / Language">
       <button class="lang-btn" data-lang="es" onclick="setLanguage('es')">ES</button>
       <span class="lang-sep" aria-hidden="true">·</span>
       <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
     </div>
-    <div class="nav-soon" data-i18n="nav_soon">Próximamente en stores</div>
+    <a href="#descarga" class="nav-soon" data-i18n="nav_soon">Próximamente en stores</a>
   </div>
 </nav>
 
@@ -29,28 +59,31 @@
     <div class="hero-inner">
       <div class="hero-content">
         <span class="hero-eyebrow" data-i18n="hero_eyebrow">iOS · Android · Próximamente</span>
-        <h1 data-i18n-html="hero_h1">De sofá<br>a <em>5K.</em><br>En 8 semanas.</h1>
+        <h1 data-i18n-html="hero_h1">De sofá a<br><em>5K</em><br>En 8 semanas.</h1>
         <p class="hero-sub" data-i18n="hero_sub">Un timer de intervalos que te dice cuándo correr y cuándo caminar. Planes estructurados semana a semana. Tan simple como suena.</p>
         <div class="hero-actions">
-          <div class="store-badges">
-            <div class="store-badge">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-              </svg>
-              <div class="store-badge-text">
-                <span class="store-badge-soon" data-i18n="coming_soon">Próximamente</span>
-                <span class="store-badge-store">App Store</span>
-              </div>
-            </div>
-            <div class="store-badge">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-              <div class="store-badge-text">
-                <span class="store-badge-soon" data-i18n="coming_soon">Próximamente</span>
-                <span class="store-badge-store">Google Play</span>
-              </div>
-            </div>
+          <a href="#descarga" class="btn-primary">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M9 2a4.5 4.5 0 0 1 4.5 4.5v3l1.5 2H3l1.5-2V6.5A4.5 4.5 0 0 1 9 2zM7 14a2 2 0 0 0 4 0" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span data-i18n="hero_btn">Avísame cuando esté disponible</span>
+          </a>
+          <span class="hero-note" data-i18n="hero_note">Sin spam · Un solo email</span>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-val">8</span>
+            <span class="hero-stat-label" data-i18n="stat_weeks">semanas</span>
+          </div>
+          <div class="hero-stat-sep" aria-hidden="true"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-val">3</span>
+            <span class="hero-stat-label" data-i18n="stat_days">días / semana</span>
+          </div>
+          <div class="hero-stat-sep" aria-hidden="true"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-val">~35</span>
+            <span class="hero-stat-label" data-i18n="stat_mins">min / sesión</span>
           </div>
         </div>
       </div>
@@ -144,10 +177,10 @@
     <div class="chart-wrap reveal">
       <canvas id="journeyChart" height="180"></canvas>
       <div class="journey-weeks">
-        <div class="journey-week-label">S1</div><div class="journey-week-label">S2</div>
-        <div class="journey-week-label">S3</div><div class="journey-week-label">S4</div>
-        <div class="journey-week-label">S5</div><div class="journey-week-label">S6</div>
-        <div class="journey-week-label">S7</div><div class="journey-week-label last" data-i18n="chart_5k">5K</div>
+        <div class="journey-week-label" data-week="1">S1</div><div class="journey-week-label" data-week="2">S2</div>
+        <div class="journey-week-label" data-week="3">S3</div><div class="journey-week-label" data-week="4">S4</div>
+        <div class="journey-week-label" data-week="5">S5</div><div class="journey-week-label" data-week="6">S6</div>
+        <div class="journey-week-label" data-week="7">S7</div><div class="journey-week-label last" data-i18n="chart_5k">5K</div>
       </div>
       <p class="journey-footnote" data-i18n="journey_footnote">Datos de la sesión del miércoles · Plan 5K para principiantes</p>
     </div>
@@ -186,13 +219,37 @@
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label" data-i18n="faq_label">Preguntas frecuentes</span>
+      <h2 data-i18n="faq_h2">Lo que todo el mundo pregunta.</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" data-i18n="faq1_q">¿Es gratis?</div>
+        <div class="faq-a" data-i18n="faq1_a">Sí, completamente gratis. Sin suscripción, sin compras dentro de la app, sin anuncios. Gratis para siempre.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" data-i18n="faq2_q">¿Funciona sin conexión a internet?</div>
+        <div class="faq-a" data-i18n="faq2_a">Sí. Una vez instalada no necesitas internet para nada. Puedes salir a correr en el monte sin cobertura y la app funciona igual.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" data-i18n="faq3_q">¿Para qué nivel es?</div>
+        <div class="faq-a" data-i18n="faq3_a">Para principiantes absolutos. Si nunca has corrido o llevas años sin hacerlo, esta app es para ti. El plan empieza desde cero y va aumentando poco a poco.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section" id="descarga">
   <div class="container">
     <div class="cta-inner reveal">
-      <span class="section-label" data-i18n="cta_label">Disponibilidad</span>
+      <span class="section-label" data-i18n="cta_label">Lista de espera</span>
       <h2 data-i18n-html="cta_h2">Próximamente<br>en iOS y Android.</h2>
-      <p data-i18n="cta_p">Estamos trabajando para publicar RunnerApp en la App Store y Google Play. Vuelve pronto.</p>
+      <p data-i18n="cta_p">Déjanos tu email y te avisamos el día que esté disponible.</p>
       <form class="waitlist-form" id="waitlistForm">
         <input type="email" class="waitlist-input" placeholder="tu@email.com" required autocomplete="email">
         <button type="submit" class="waitlist-btn" data-i18n="waitlist_btn">Avísame</button>
@@ -224,7 +281,7 @@
 </section>
 
 <footer>
-  <p data-i18n="footer">RunnerApp · Hecho con cariño para principiantes · Gratis y sin anuncios</p>
+  <p data-i18n="footer">Trote · Hecho con cariño para principiantes</p>
 </footer>
 
 <script src="landing.js"></script>

@@ -18,7 +18,7 @@ Notifications.setNotificationHandler({
 });
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -167,22 +167,22 @@ export default function App() {
         <ThemedBackground>
           <LanguageProvider initialLang={initLang}>
             <NavigationContainer>
-              <RootStack.Navigator screenOptions={{ headerShown: false }}>
+              <RootStack.Navigator screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#07080F' }, cardOverlayEnabled: false, cardShadowEnabled: false }}>
                 <RootStack.Screen name="Main" component={MainTabs} />
                 <RootStack.Screen
                   name="IntervalTimer"
                   component={IntervalTimerScreen}
-                  options={{ gestureEnabled: false, presentation: 'fullScreenModal' }}
+                  options={{ gestureEnabled: false, presentation: 'fullScreenModal', cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid }}
                 />
                 <RootStack.Screen
                   name="PlanFinder"
                   component={PlanFinderScreen}
-                  options={{ presentation: 'modal', gestureEnabled: true }}
+                  options={{ presentation: 'modal', gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid }}
                 />
                 <RootStack.Screen
                   name="AddRun"
                   component={AddRunScreen}
-                  options={{ presentation: 'modal', gestureEnabled: true }}
+                  options={{ presentation: 'modal', gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid }}
                 />
               </RootStack.Navigator>
             </NavigationContainer>
